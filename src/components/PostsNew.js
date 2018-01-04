@@ -13,6 +13,7 @@ class PostsNew extends Component {
             {...field.input}
 
         />
+        {field.meta.error}
       </div>
     );
   }
@@ -28,6 +29,7 @@ class PostsNew extends Component {
             {...field.input}
 
         />
+        {field.meta.error}
       </div>
     );
   }
@@ -35,7 +37,7 @@ class PostsNew extends Component {
 
   render() {
     return (
-      <form>
+      <form >
         <Field
           bloop="Title"
           name="title"
@@ -53,18 +55,27 @@ class PostsNew extends Component {
           name="content"
           component={this.renderContentField}
         />
+        <button type="submit" className="btn btn-primary">Submit</button>
       </form>
     );
   }
 }
 
-function validate(){
+function validate(values){
   //console.log(values); -> {title: 'asas', cateories: 'sdfad', content:'asdasd'}
   const errors = {};
 
   //validate the inputs from 'values'
-  if(!values.title) {
-    errors.title = 'Please enter a title!';
+  if(!values.title || values.title.length < 3) {
+    errors.title = 'Please enter a title with at least three characters!';
+  }
+
+  if (!values.categories) {
+    errors.categories = 'Please enter at least one category!';
+  }
+
+  if (!values.content) {
+    errors.content = 'Please enter some content!';
   }
 
   //if errors is empty, the form is fine to submit.
