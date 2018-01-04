@@ -4,8 +4,13 @@ import { Field, reduxForm } from 'redux-form'
 class PostsNew extends Component {
 
   renderField(field){
+
+    const { meta: { touched, error } } = field;  //es6 destructuring: field.meta.touched and field.meta.error
+
+    const className= `form-group ${ touched && error ? 'has-danger' : ''}` //ternary, if there's an error and it's been touched, show the box in red
+
     return(
-      <div className="form-group">
+      <div className={className}>
         <label>{field.bloop}</label>
         <input
           className="form-control"
@@ -13,15 +18,20 @@ class PostsNew extends Component {
             {...field.input}
 
         />
-        {field.meta.error}
+        <div className="text-help" style={{color: "red"}}>{ touched ? error : ''}</div>
       </div>
     );
   }
 
 
   renderContentField(field){
+
+    const { meta: { touched, error } } = field;  //es6 destructuring: field.meta.touched and field.meta.error
+
+    const className= `form-group ${ touched && error ? 'has-danger' : ''}` //ternary, if there's an error and it's been touched, show the box in red
+
     return(
-      <div className="form-group">
+      <div className={className}>
         <label>{field.bloop}</label>
         <input
           className="form-control"
@@ -29,7 +39,7 @@ class PostsNew extends Component {
             {...field.input}
 
         />
-        {field.meta.error}
+        <div className="text-help" style={{color: "red"}}>{field.meta.touched ? field.meta.error : ''}</div>
       </div>
     );
   }
